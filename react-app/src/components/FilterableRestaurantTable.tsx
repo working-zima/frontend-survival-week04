@@ -1,37 +1,40 @@
-import { useEffect, useState } from 'react';
-
+import selectCategories from '../utils/selectCategories';
 import SearchBar from './SearchBar';
 import RestaurantTable from './RestaurantTable';
 import Restaurant from '../types/Restaurant';
+import filterRestaurants from '../utils/filterRestaurants';
 
-type getProps = {
-  host: string;
-  path: string;
+type FilterableRestaurantTable = {
+  restaurants: Restaurant[];
+  filterText: string;
+  filterCategory: string;
+  setFilterText: (text: string) => void;
+  setFilterCategory: (text: string) => void;
 };
 
-async function get({ host, path }: getProps) {
-  const url = `http://${host}/${path}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data;
-}
+function FilterableRestaurantTable({
+  restaurants,
+  filterText,
+  filterCategory,
+  setFilterText,
+  setFilterCategory,
+}: FilterableRestaurantTable) {
+  const categories = selectCategories(restaurants);
 
-function FilterableRestaurantTable() {
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await get({ host: 'localhost:3000', path: 'restaurants' });
-      setRestaurants(data);
-    };
-
-    fetchData();
-  }, []);
+  const filteredRestaurants = filterRestaurants(restaurants, {
+    filterText,
+    filterCategory,
+  });
 
   return (
     <div>
-      <SearchBar />
-      <RestaurantTable restaurants={restaurants} />
+      <SearchBar
+        categories={categories}
+        filterText={filterText}
+        setFilterText={setFilterText}
+        setFilterCategory={setFilterCategory}
+      />
+      <RestaurantTable restaurants={filteredRestaurants} />
     </div>
   );
 }

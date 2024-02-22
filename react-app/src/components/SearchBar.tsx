@@ -1,52 +1,47 @@
-import React, { useState } from 'react';
+import TextField from './TextField';
 
-function SearchBar() {
-  const [totalAmount, setTotalAmount] = useState(25000);
-  const label = '검색';
-  const id = `input-${label}`;
-  const placeholder = '식당 이름';
+type SearchBarProps = {
+  categories: string[];
+  filterText: string;
+  setFilterText: (text: string) => void;
+  setFilterCategory: (text: string) => void;
+};
+
+function SearchBar({
+  categories,
+  filterText,
+  setFilterText,
+  setFilterCategory,
+}: SearchBarProps) {
   return (
     <div>
-      {' '}
-      <div
-        className="shopping-cart"
-        style={{ marginBottom: '3rem' }}
+      <TextField
+        label="검색"
+        placeholder="식당 이름"
+        filterText={filterText}
+        setFilterText={setFilterText}
+      />
+      <ul
+        style={{
+          display: 'flex',
+          padding: 0,
+          listStyle: 'none',
+        }}
       >
-        <h2>점심 바구니</h2>
-        <ul>장바구니 예정</ul>
-        <button type="button">
-          {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-          합계: {totalAmount}원 주문
-        </button>
-      </div>
-      <div>
-        <div className="search-bar">
-          <div className="text-field">
-            <label
-              htmlFor={id}
-              style={{ paddingRight: '1rem' }}
-            >
-              {label}
-            </label>
-            <input
-              id={id}
-              type="text"
-              placeholder={placeholder}
-            />
-          </div>
-          <ul
-            style={{
-              display: 'flex',
-              padding: 0,
-              listStyle: 'none',
-            }}
+        {['전체', ...categories].map((category: string) => (
+          <li
+            key={category}
+            style={{ marginRight: '1rem' }}
           >
-            <li style={{ marginRight: '1rem' }}>
-              <button type="button">전체</button>
-            </li>
-          </ul>
-        </div>
-      </div>
+            <button
+              type="button"
+              onClick={() => setFilterCategory(category)}
+            >
+              {category}
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
