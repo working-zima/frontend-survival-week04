@@ -24,10 +24,7 @@ function RestaurantTable({ restaurants }: RestaurantTableProps) {
         </thead>
         <tbody>
           {restaurants.map((restaurant) => (
-            <RestaurantRow
-              key={restaurant.id}
-              restaurant={restaurant}
-            />
+            <RestaurantRow key={restaurant.id} restaurant={restaurant} />
           ))}
         </tbody>
       </table>

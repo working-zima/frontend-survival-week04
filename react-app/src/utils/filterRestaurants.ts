@@ -13,15 +13,21 @@ function filterRestaurants(
   restaurants: Restaurant[],
   { filterText, filterCategory }: FilterConditions,
 ): Restaurant[] {
-  const match = (restaurant: Restaurant) => restaurant.category === filterCategory;
+  const match = (
+    restaurant: Restaurant, //
+  ) => restaurant.category === filterCategory;
 
-  const filteredRestaurants = filterCategory === '전체' ? restaurants : restaurants.filter(match);
+  // eslint-disable-next-line operator-linebreak
+  const filteredRestaurants =
+    filterCategory === '전체' ? restaurants : restaurants.filter(match);
 
   const query = nomalize(filterText);
 
   if (!query) return filteredRestaurants;
 
-  const contains = (restaurant: Restaurant) => nomalize(restaurant.name).includes(query);
+  const contains = (
+    restaurant: Restaurant, //
+  ) => nomalize(restaurant.name).includes(query);
 
   return filteredRestaurants.filter(contains);
 }
