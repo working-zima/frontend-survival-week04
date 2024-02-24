@@ -43,7 +43,9 @@ function ShoppingCart({ setReceipt, setIsOrdered }: ShoppingCartProps) {
           return (
             <li key={id} style={{ display: 'flex', paddingBlock: '0.5rem' }}>
               <span style={{ margin: '0px auto' }}>
-                {name}({price.toLocaleString()}
+                {name}
+                (
+                {price.toLocaleString()}
                 원)
               </span>
               <button

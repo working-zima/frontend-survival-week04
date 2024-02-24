@@ -5,7 +5,6 @@ type ReceiptProps = {
 };
 
 function Receipt({ receipt }: ReceiptProps) {
-  console.log(receipt);
   const { id, menu, totalPrice } = receipt;
   return (
     <div
@@ -29,7 +28,10 @@ function Receipt({ receipt }: ReceiptProps) {
               style={{ display: 'flex', paddingBlock: '0.5rem' }}
             >
               <span style={{ margin: '0px auto' }}>
-                {food.name}({food.price.toLocaleString()})
+                {food.name}
+                (
+                {food.price.toLocaleString()}
+                )
               </span>
             </li>
           ))}
@@ -37,7 +39,8 @@ function Receipt({ receipt }: ReceiptProps) {
       </div>
       <p>
         총 가격:
-        {totalPrice.toLocaleString()}원
+        {totalPrice.toLocaleString()}
+        원
       </p>
     </div>
   );
