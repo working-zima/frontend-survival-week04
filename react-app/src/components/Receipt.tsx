@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import Post from '../types/Post';
 
 type ReceiptProps = {
@@ -28,20 +29,13 @@ function Receipt({ receipt }: ReceiptProps) {
               style={{ display: 'flex', paddingBlock: '0.5rem' }}
             >
               <span style={{ margin: '0px auto' }}>
-                {food.name}
-                (
-                {food.price.toLocaleString()}
-                )
+                {food.name}({food.price.toLocaleString()})
               </span>
             </li>
           ))}
         </ul>
       </div>
-      <p>
-        총 가격:
-        {totalPrice.toLocaleString()}
-        원
-      </p>
+      <p>총 가격: {totalPrice.toLocaleString()}원</p>
     </div>
   );
 }
