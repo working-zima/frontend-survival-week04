@@ -1,15 +1,24 @@
-type getProps = {
+import Food from '../types/Food';
+
+type fetchProps = {
   host: string;
   path: string;
+  body?: { menu: Food[]; totalPrice: number };
 };
 
-export async function get({ host, path }: getProps) {
-  const url = `http://${host}/${path}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data;
+export async function get({ host, path }: fetchProps) {
+  const res = await fetch(`http://${host}/${path}`);
+  return res.json();
 }
 
-export async function post() {
-  return null;
+export async function post({ host, path, body }: fetchProps) {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  };
+  const res = await fetch(`http://${host}/${path}`, options);
+  return res.json();
 }

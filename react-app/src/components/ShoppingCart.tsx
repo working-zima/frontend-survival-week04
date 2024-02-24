@@ -1,8 +1,16 @@
 import { useLocalStorage } from 'usehooks-ts';
-import Cart from '../types/Cart';
 
-function ShoppingCart() {
-  const [cartItems, setCartItem] = useLocalStorage<Cart[]>('cart', []);
+import Food from '../types/Food';
+import { post } from '../utils/fetch';
+import Post from '../types/Post';
+
+type ShoppingCartProps = {
+  setReceipt: (array: Post) => void;
+  setIsOrdered: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function ShoppingCart({ setReceipt, setIsOrdered }: ShoppingCartProps) {
+  const [cartItems, setCartItem] = useLocalStorage<Food[]>('cart', []);
 
   const estimatedOrderAmount = cartItems.reduce((acc, item) => {
     const { price } = item;
@@ -14,6 +22,18 @@ function ShoppingCart() {
     setCartItem(updatedCartItem);
   };
 
+  const handleOrder = async () => {
+    const response = await post({
+      host: 'localhost:3000',
+      path: 'orders',
+      body: { menu: cartItems, totalPrice: estimatedOrderAmount },
+    });
+
+    setReceipt(response);
+    setIsOrdered((prevIsOrdered) => !prevIsOrdered);
+    setCartItem([]);
+  };
+
   return (
     <div style={{ marginBottom: '3rem' }}>
       <h2>점심 바구니</h2>
@@ -23,9 +43,7 @@ function ShoppingCart() {
           return (
             <li key={id} style={{ display: 'flex', paddingBlock: '0.5rem' }}>
               <span style={{ margin: '0px auto' }}>
-                {name}
-                (
-                {price.toLocaleString()}
+                {name}({price.toLocaleString()}
                 원)
               </span>
               <button
@@ -39,7 +57,7 @@ function ShoppingCart() {
           );
         })}
       </ul>
-      <button type="button">
+      <button type="button" onClick={() => handleOrder()}>
         {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
         합계: {estimatedOrderAmount.toLocaleString()}원 주문
       </button>

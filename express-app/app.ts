@@ -15,8 +15,7 @@ app.get('/restaurants', (req, res) => {
 });
 
 app.post('/orders', (req, res) => {
-  const post = req.body;
-  res.status(201).send({ id: Date.now().toString(), ...post });
+  res.status(201).send({ id: Date.now().toString(), ...req.body });
 });
 
 app.listen(PORT, () => {

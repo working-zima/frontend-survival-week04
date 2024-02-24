@@ -2,14 +2,13 @@
 import { useLocalStorage } from 'usehooks-ts';
 
 import Food from '../types/Food';
-import Cart from '../types/Cart';
 
 type FoodProps = {
   menu: Food[];
 };
 
 function Foods({ menu }: FoodProps) {
-  const [, setCart] = useLocalStorage<Cart[]>('cart', []);
+  const [, setCart] = useLocalStorage<Food[]>('cart', []);
 
   return (
     <ul>
