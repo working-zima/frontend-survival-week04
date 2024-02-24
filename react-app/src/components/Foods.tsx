@@ -22,7 +22,7 @@ function Foods({ menu }: FoodProps) {
               원)
             </span>
             <button
-              name={name}
+              name={`#${name}`}
               type="button"
               style={{ marginLeft: '0.5rem' }}
               onClick={
