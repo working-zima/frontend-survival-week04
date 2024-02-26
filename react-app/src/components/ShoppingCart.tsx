@@ -1,7 +1,7 @@
 import { useLocalStorage } from 'usehooks-ts';
 
 import Food from '../types/Food';
-import { post } from '../utils/fetch';
+import post from '../utils/fetch';
 import Post from '../types/Post';
 
 type ShoppingCartProps = {

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useInterval } from 'usehooks-ts';
 
-import Restaurant from './types/Restaurant';
 import Post from './types/Post';
 import ShoppingCart from './components/ShoppingCart';
 import FilterableRestaurantTable from './components/FilterableRestaurantTable';
@@ -9,7 +8,7 @@ import Receipt from './components/Receipt';
 import useFetchRestaurants from './hooks/useFetchRestaurants';
 
 export default function App() {
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  // const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [filterText, setFilterText] = useState<string>('');
   const [filterCategory, setFilterCategory] = useState<string>('전체');
   const [isOrdered, setIsOrdered] = useState<boolean>(false);
@@ -19,8 +18,8 @@ export default function App() {
     totalPrice: 0,
   });
 
-  useFetchRestaurants(setRestaurants);
-
+  const restaurants = useFetchRestaurants();
+  console.log('App:', restaurants);
   useInterval(
     () => {
       setIsOrdered((prevIsOrder) => !prevIsOrder);

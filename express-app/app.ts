@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/restaurants', (req, res) => {
-  res.status(200).send(restaurants);
+  res.status(200).send({ restaurants });
 });
 
 app.post('/orders', (req, res) => {
