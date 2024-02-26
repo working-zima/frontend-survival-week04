@@ -19,7 +19,7 @@ export default function App() {
   });
 
   const restaurants = useFetchRestaurants();
-  console.log('App:', restaurants);
+
   useInterval(
     () => {
       setIsOrdered((prevIsOrder) => !prevIsOrder);

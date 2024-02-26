@@ -13,6 +13,6 @@ export default function useFetchRestaurants() {
   if (!data) {
     return [];
   }
-  console.log('useFetchRestaurants', data);
+
   return data.restaurants;
 }
