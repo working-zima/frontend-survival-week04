@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useInterval } from 'usehooks-ts';
 
 import Restaurant from './types/Restaurant';
 import Post from './types/Post';
-import { get } from './utils/fetch';
 import ShoppingCart from './components/ShoppingCart';
 import FilterableRestaurantTable from './components/FilterableRestaurantTable';
 import Receipt from './components/Receipt';
+import useFetchRestaurants from './hooks/useFetchRestaurants';
 
 export default function App() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -19,14 +19,7 @@ export default function App() {
     totalPrice: 0,
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await get({ host: 'localhost:3000', path: 'restaurants' });
-      setRestaurants(data);
-    };
-
-    fetchData();
-  }, []);
+  useFetchRestaurants(setRestaurants);
 
   useInterval(
     () => {
